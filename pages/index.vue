@@ -117,6 +117,13 @@
                         setTimeout(function () {
                             self.fetchInfo();
                         }, self.request_frequency);
+                    })
+                    .catch(() => {
+                        //    Restart request
+                        let self = this;
+                        setTimeout(function () {
+                            self.fetchInfo();
+                        }, self.request_frequency);
                     });
             },
             fetchPlayers() {
@@ -127,6 +134,13 @@
                         this.UPDATED = response.time;
                         this.MQ_SERVER_PLAYERS = this.MQ_SERVER_INFO['QueryType'] === 'MinecraftQuery' ? response.data : null;
                         this.handlingRequest = false;
+                        //    Restart request
+                        let self = this;
+                        setTimeout(function () {
+                            self.fetchPlayers();
+                        }, self.request_frequency);
+                    })
+                    .catch(() => {
                         //    Restart request
                         let self = this;
                         setTimeout(function () {
