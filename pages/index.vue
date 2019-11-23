@@ -1,62 +1,65 @@
 <template>
   <div>
     <NavBar/>
-    <div class="main">
-      <ContentArea title="服务器状态">
+    <a-spin :spinning="handlingRequest" :delay="500" tip="获取状态中">
+      <a-icon slot="indicator" type="loading" style="font-size: 24px" spin/>
+      <div class="main">
+        <ContentArea title="服务器状态">
 
-        <div class="etcs-container">
+          <div class="etcs-container">
 
-          <div v-for="(info, key) in infoList" :key="key" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
-            <div class="setting-block">
-              <div class="setting-block-title">
-                {{ info.title }}
+            <div v-for="(info, key) in infoList" :key="key" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
+              <div class="setting-block">
+                <div class="setting-block-title">
+                  {{ info.title }}
+                </div>
+                <div class="setting-block-icon">
+                  <i class="mdui-icon material-icons">{{ info.icon }}</i>
+                </div>
+                <div class="setting-block-subtext" v-html="MQ_SERVER_INFO[info.field] || '-'"></div>
               </div>
-              <div class="setting-block-icon">
-                <i class="mdui-icon material-icons">{{ info.icon }}</i>
+            </div>
+
+          </div>
+        </ContentArea>
+
+        <ContentArea title="在线玩家列表">
+
+          <div class="etcs-container">
+
+            <div v-if="MQ_SERVER_PLAYERS == null"><h3>无法获取玩家列表</h3></div>
+            <div v-else-if="MQ_SERVER_PLAYERS.length === 0"><h3>当前没有玩家在线</h3></div>
+            <div v-else v-for="player in MQ_SERVER_PLAYERS" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
+              <div class="etcs-player-label">
+                {{ player }}
               </div>
-              <div class="setting-block-subtext" v-html="MQ_SERVER_INFO[info.field] || '-'"></div>
             </div>
+
           </div>
+        </ContentArea>
 
-        </div>
-      </ContentArea>
+        <ContentArea title="服务器插件列表">
 
-      <ContentArea title="在线玩家列表">
+          <div class="etcs-container">
 
-        <div class="etcs-container">
-
-          <div v-if="MQ_SERVER_PLAYERS == null"><h3>无法获取玩家列表</h3></div>
-          <div v-else-if="MQ_SERVER_PLAYERS.length === 0"><h3>当前没有玩家在线</h3></div>
-          <div v-else v-for="player in MQ_SERVER_PLAYERS" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
-            <div class="etcs-player-label">
-              {{ player }}
+            <div v-if="MQ_SERVER_PLUGINS == null"><h3>无法获取插件列表</h3></div>
+            <div v-else-if="MQ_SERVER_PLUGINS.length === 0"><h3>服务器没有启用任何插件</h3></div>
+            <div v-else v-for="plugin in MQ_SERVER_PLUGINS" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
+              <div class="etcs-plugin-label">
+                {{ plugin }}
+              </div>
             </div>
+
           </div>
+        </ContentArea>
 
-        </div>
-      </ContentArea>
-
-      <ContentArea title="服务器插件列表">
-
-        <div class="etcs-container">
-
-          <div v-if="MQ_SERVER_PLUGINS == null"><h3>无法获取插件列表</h3></div>
-          <div v-else-if="MQ_SERVER_PLUGINS.length === 0"><h3>服务器没有启用任何插件</h3></div>
-          <div v-else v-for="plugin in MQ_SERVER_PLUGINS" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
-            <div class="etcs-plugin-label">
-              {{ plugin }}
-            </div>
-          </div>
-
-        </div>
-      </ContentArea>
-
-    </div>
-    <footer class="etcs-footer">
-      <p>
-        更新于: {{ UPDATED ? timestamp2Time(UPDATED) : '从未' }}
-      </p>
-    </footer>
+      </div>
+      <footer class="etcs-footer">
+        <p>
+          更新于: {{ UPDATED ? timestamp2Time(UPDATED) : '从未' }}
+        </p>
+      </footer>
+    </a-spin>
   </div>
 </template>
 
@@ -64,8 +67,8 @@
     import NavBar from "../components/NavBar";
     import ContentArea from "../components/ContentArea";
 
-    // const MQ_API_BASE = 'https://mc.boxmoe.cn/api';
-    const MQ_API_BASE = '/api';
+    const MQ_API_BASE = 'https://mc.boxmoe.cn/api';
+    // const MQ_API_BASE = '/api';
 
     let intervalInfo, intervalPlayers;
 
@@ -93,10 +96,13 @@
                 MQ_SERVER_PLAYERS: null,
                 MQ_SERVER_PLUGINS: null,
                 UPDATED: null,
+                handlingRequest: true,
+                request_frequency: 2500,
             }
         },
         methods: {
             fetchInfo() {
+                this.handlingRequest = true;
                 this.$axios.get(MQ_API_BASE + '/GetSvrInfo')
                     .then((response) => {
                         response = response.data;
@@ -105,14 +111,27 @@
                         if (typeof this.MQ_SERVER_INFO['Players'] === "number")
                             this.MQ_SERVER_INFO['Players'] = this.MQ_SERVER_INFO['Players'].toString();
                         this.MQ_SERVER_PLUGINS = response.data['Plugins'] === undefined ? null : response.data['Plugins'];
+                        this.handlingRequest = false;
+                        //    Restart request
+                        let self = this;
+                        setTimeout(function () {
+                            self.fetchInfo();
+                        }, self.request_frequency);
                     });
             },
             fetchPlayers() {
+                this.handlingRequest = true;
                 this.$axios.get(MQ_API_BASE + '/GetSvrPlayers')
                     .then((response) => {
                         response = response.data;
                         this.UPDATED = response.time;
-                        this.MQ_SERVER_PLAYERS = response.data;
+                        this.MQ_SERVER_PLAYERS = this.MQ_SERVER_INFO['QueryType'] === 'MinecraftQuery' ? response.data : null;
+                        this.handlingRequest = false;
+                        //    Restart request
+                        let self = this;
+                        setTimeout(function () {
+                            self.fetchPlayers();
+                        }, self.request_frequency);
                     });
             },
             timestamp2Time(timestamp) {
@@ -129,13 +148,8 @@
             },
         },
         mounted() {
-            let self = this;
-            intervalInfo = setInterval(function () {
-                self.fetchInfo();
-            }, 3000);
-            intervalPlayers = setInterval(function () {
-                self.fetchPlayers();
-            }, 3000);
+            this.fetchInfo();
+            this.fetchPlayers();
         },
     }
 </script>
@@ -145,6 +159,11 @@
     width: 100%;
     top: 50px;
     padding-bottom: 5rem;
+  }
+
+  .ant-spin-nested-loading {
+    position: absolute;
+    width: 100%;
   }
 
   .etcs-container {
