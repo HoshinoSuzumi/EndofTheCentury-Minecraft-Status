@@ -44,7 +44,8 @@
 
             <div v-if="MQ_SERVER_PLUGINS == null"><h3>无法获取插件列表</h3></div>
             <div v-else-if="MQ_SERVER_PLUGINS.length === 0"><h3>服务器没有启用任何插件</h3></div>
-            <div v-else v-for="plugin in MQ_SERVER_PLUGINS" class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
+            <div v-else v-for="plugin in MQ_SERVER_PLUGINS" @click="searchCurseForgePlugin(plugin)"
+                 class="mdui-col-xs-12 mdui-col-sm-6 mdui-col-md-4">
               <div class="etcs-plugin-label">
                 {{ plugin }}
               </div>
@@ -160,6 +161,9 @@
                 let s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
                 return Y + M + D + h + m + s;
             },
+            searchCurseForgePlugin(kw) {
+                window.open('https://www.curseforge.com/minecraft/bukkit-plugins/search?search=' + escape(kw))
+            },
         },
         mounted() {
             this.fetchInfo();
@@ -196,8 +200,20 @@
     border-radius: 10px;
     background: #FFFFFF;
     box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .06), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .03);
-    padding: 1.5rem 15px 15px;
+    padding-left: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     margin-bottom: 0.85rem;
     font-weight: 400;
+    font-size: 1rem;
+  }
+
+  .etcs-plugin-label {
+    cursor: pointer;
+    transition: all .3s;
+  }
+
+  .etcs-plugin-label:hover {
+    box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .12), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .06);
   }
 </style>
