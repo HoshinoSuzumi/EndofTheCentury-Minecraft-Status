@@ -1,0 +1,71 @@
+@import url(~/assets/css/poppins.css);
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #f4f8fb;
+  font-family: Roboto, 'Microsoft JhengHei', sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+
+/* settings */
+.setting-block {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 0.85rem;
+  border: 1px solid #C8C8C8;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.setting-block .setting-block-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.setting-block .setting-block-icon {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  color: rgba(0, 0, 0, .05);
+}
+
+.setting-block .setting-block-icon i {
+  font-size: 5rem;
+}
+
+.setting-block .setting-block-subtext {
+  display: block;
+  position: absolute;
+  word-wrap: break-word;
+  max-width: 65%;
+  left: 1.35rem;
+  bottom: 1.65rem;
+  font-size: 1rem;
+}
+
+/* Footer */
+
+.etcs-footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .06), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .03);
+}
+
+.etcs-footer p {
+  padding: 0;
+  margin: .75rem 0;
+  font-size: .75rem;
+  font-family: Microsoft JhengHei, sans-serif;
+}
