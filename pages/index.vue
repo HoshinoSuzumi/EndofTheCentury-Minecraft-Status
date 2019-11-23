@@ -64,7 +64,8 @@
     import NavBar from "../components/NavBar";
     import ContentArea from "../components/ContentArea";
 
-    const MQ_API_BASE = 'https://mc.boxmoe.cn/api';
+    // const MQ_API_BASE = 'https://mc.boxmoe.cn/api';
+    const MQ_API_BASE = '/api';
 
     let intervalInfo, intervalPlayers;
 
