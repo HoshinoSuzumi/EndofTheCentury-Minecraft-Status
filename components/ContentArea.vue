@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="title mdui-valign">
+    <div v-if="title" class="title mdui-valign">
       <h1>{{ title }}</h1>
     </div>
 
-    <div class="mdui-container">
+    <div class="mdui-container" style="margin-bottom: 1rem;">
       <slot/>
     </div>
   </div>

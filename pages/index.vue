@@ -116,14 +116,16 @@
                         //    Restart request
                         let self = this;
                         setTimeout(function () {
-                            self.fetchInfo();
+                            if (self.fetchInfo)
+                                self.fetchInfo();
                         }, self.request_frequency);
                     })
                     .catch(() => {
                         //    Restart request
                         let self = this;
                         setTimeout(function () {
-                            self.fetchInfo();
+                            if (self.fetchInfo)
+                                self.fetchInfo();
                         }, self.request_frequency);
                     });
             },
@@ -138,14 +140,16 @@
                         //    Restart request
                         let self = this;
                         setTimeout(function () {
-                            self.fetchPlayers();
+                            if (self.fetchPlayers)
+                                self.fetchPlayers();
                         }, self.request_frequency);
                     })
                     .catch(() => {
                         //    Restart request
                         let self = this;
                         setTimeout(function () {
-                            self.fetchPlayers();
+                            if (self.fetchPlayers)
+                                self.fetchPlayers();
                         }, self.request_frequency);
                     });
             },
@@ -169,51 +173,12 @@
             this.fetchInfo();
             this.fetchPlayers();
         },
+        beforeDestroy() {
+            this.fetchInfo = null;
+            this.fetchPlayers = null;
+        }
     }
 </script>
 
 <style scoped>
-  .main {
-    width: 100%;
-    top: 50px;
-    padding-bottom: 5rem;
-  }
-
-  .ant-spin-nested-loading {
-    position: absolute;
-    width: 100%;
-  }
-
-  .etcs-container {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 10px;
-    background: #FFFFFF;
-    box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .06), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .03);
-    padding: 1.5rem 15px 15px;
-  }
-
-  .etcs-player-label,
-  .etcs-plugin-label {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 10px;
-    background: #FFFFFF;
-    box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .06), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .03);
-    padding-left: 1.5rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    margin-bottom: 0.85rem;
-    font-weight: 400;
-    font-size: 1rem;
-  }
-
-  .etcs-plugin-label {
-    cursor: pointer;
-    transition: all .3s;
-  }
-
-  .etcs-plugin-label:hover {
-    box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .12), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .06);
-  }
 </style>

@@ -1,19 +1,13 @@
 <template>
   <div class="np-navbar">
     <div class="np-navbar-title">End of The Century <b>Survival</b></div>
-    <div class="np-navbar-actions">
-      <button class="mdui-btn mdui-text-color-grey-700 nav-btn nav-btn-active">
-        首页
-      </button>
-      <button class="mdui-btn mdui-text-color-grey-700 nav-btn">
-        物品 ID 列表
-      </button>
-      <button class="mdui-btn mdui-text-color-grey-700 nav-btn">
-        皮肤站
-      </button>
-      <!--      <button class="mdui-btn mdui-btn-icon mdui-text-color-grey-700">-->
-      <!--        <i class="mdui-icon material-icons">settings</i>-->
-      <!--      </button>-->
+    <div class="np-navbar-actions mdui-hidden-xs-down">
+      <nuxt-link v-for="(link, key) in routesList" :key="key" :to="link.path">
+          <span class="mdui-btn mdui-text-color-grey-700 nav-btn"
+                :class="{'nav-btn-active': $route.path === link.path}">
+            {{ link.name }}
+          </span>
+      </nuxt-link>
       <button class="mdui-btn mdui-color-light-blue-500 mdui-text-color-white" id="btn_play_now">
         <i class="mdui-icon material-icons">play_arrow</i>
         立即游玩
@@ -25,6 +19,15 @@
 <script>
     export default {
         name: "NavBar",
+        data() {
+            return {
+                routesList: [
+                    {name: '首页', path: '/',},
+                    {name: '物品 ID 列表', path: '/minecraft-items',},
+                    {name: '皮肤站', path: 'https://mcskin.boxmoe.cn'},
+                ],
+            }
+        },
     }
 </script>
 
@@ -65,10 +68,10 @@
 
   .nav-btn:before {
     position: absolute;
+    display: inline-block;
     z-index: 1;
     left: 0;
     bottom: 0;
-    display: inline-block;
     height: 3px;
     width: 100%;
     background-color: #03A9F4;
@@ -76,11 +79,12 @@
     transform: scale3d(0, 1, 1);
     transform-origin: center;
     transition: all 0.5s;
+    border-radius: 15px;
   }
 
+  .nav-btn-active:before,
   .nav-btn:hover:before {
     transform: scale3d(1, 1, 1);
-    color: #03A9F4;
   }
 
   #btn_play_now {
