@@ -24,7 +24,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(Item, k) in MinecraftItems" :key="k">
+              <tr v-for="(Item, k) in MinecraftItems_search" :key="k">
                 <td>{{ Item['id'] }}</td>
                 <td><img :src="Item['icon']" :alt="Item['id']+':'+Item['name']"/></td>
                 <td>{{ Item['name'] }}</td>
@@ -64,6 +64,7 @@
                 this.$axios.get(MC_ITEMS_LISTS)
                     .then((data) => {
                         this.MinecraftItems = JSON.parse(JSON.stringify(data.data));
+                        this.MinecraftItems_search = this.MinecraftItems;
                         this.loadingData = false;
                     })
                     .catch((e) => {
@@ -75,10 +76,32 @@
                         }, 2000);
                     });
             },
-            searchItems(keyword) {
-                return keyword;
-            },
         },
+        watch: {
+            'inputKeyword': function (kw) {
+                let self = this;
+                self.MinecraftItems_search = [];
+                if (kw.toString().length === 0) {
+                    self.MinecraftItems_search = self.MinecraftItems;
+                    return null;
+                }
+                this.MinecraftItems.forEach(function (item) {
+                    if (item['id'].indexOf(kw) !== -1) {
+                        self.MinecraftItems_search.push(item);
+                        return null;
+                    }
+                    if (item['name'].indexOf(kw) !== -1) {
+                        self.MinecraftItems_search.push(item);
+                        return null;
+                    }
+                    if (item['tag'].indexOf(kw) !== -1) {
+                        self.MinecraftItems_search.push(item);
+                        return null;
+                    }
+                });
+            }
+        }
+        ,
     }
 </script>
 
