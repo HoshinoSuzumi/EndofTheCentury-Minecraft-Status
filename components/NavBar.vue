@@ -49,7 +49,8 @@
     padding: 0 1.5rem;
     transition: all .3s;
     box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .06), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .03);
-    background: #FFFFFF;
+    background: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(20px);
   }
 
   .np-navbar.immerse {
