@@ -1,7 +1,6 @@
 <template>
   <div>
-    <NavBar/>
-    <a-spin :spinning="handlingRequest" :delay="500" tip="获取状态中">
+    <a-spin :spinning="handlingRequest" :delay="loadingOverlayDelay" tip="获取状态中">
       <a-icon slot="indicator" type="loading" style="font-size: 24px" spin/>
       <div class="main">
         <ContentArea title="服务器状态">
@@ -99,6 +98,7 @@
                 UPDATED: null,
                 handlingRequest: true,
                 request_frequency: 2500,
+                loadingOverlayDelay: 800,
             }
         },
         methods: {

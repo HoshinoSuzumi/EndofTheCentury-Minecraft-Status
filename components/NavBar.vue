@@ -2,15 +2,22 @@
   <div class="np-navbar">
     <div class="np-navbar-title">End of The Century <b>Survival</b></div>
     <div class="np-navbar-actions">
+      <button class="mdui-btn mdui-text-color-grey-700 nav-btn nav-btn-active">
+        首页
+      </button>
+      <button class="mdui-btn mdui-text-color-grey-700 nav-btn">
+        物品 ID 列表
+      </button>
+      <button class="mdui-btn mdui-text-color-grey-700 nav-btn">
+        皮肤站
+      </button>
       <!--      <button class="mdui-btn mdui-btn-icon mdui-text-color-grey-700">-->
       <!--        <i class="mdui-icon material-icons">settings</i>-->
       <!--      </button>-->
-      <!--      <button class="mdui-btn mdui-text-color-grey-700">-->
-      <!--        首页-->
-      <!--      </button>-->
-      <!--      <button class="mdui-btn mdui-text-color-grey-700">-->
-      <!--        关于-->
-      <!--      </button>-->
+      <button class="mdui-btn mdui-color-light-blue-500 mdui-text-color-white" id="btn_play_now">
+        <i class="mdui-icon material-icons">play_arrow</i>
+        立即游玩
+      </button>
     </div>
   </div>
 </template>
@@ -23,6 +30,9 @@
 
 <style scoped>
   .np-navbar {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
     width: 100%;
     height: 50px;
     display: flex;
@@ -51,5 +61,35 @@
     display: inline-flex;
     font-size: 1.2rem;
     font-family: "Microsoft JhengHei", sans-serif;
+  }
+
+  .nav-btn:before {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    bottom: 0;
+    display: inline-block;
+    height: 3px;
+    width: 100%;
+    background-color: #03A9F4;
+    content: "";
+    transform: scale3d(0, 1, 1);
+    transform-origin: center;
+    transition: all 0.5s;
+  }
+
+  .nav-btn:hover:before {
+    transform: scale3d(1, 1, 1);
+    color: #03A9F4;
+  }
+
+  #btn_play_now {
+    margin-left: .5rem;
+    padding-left: .65rem;
+    padding-right: .65rem;
+  }
+
+  #btn_play_now i {
+    margin-left: -.5rem;
   }
 </style>
