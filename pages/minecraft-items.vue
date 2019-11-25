@@ -11,7 +11,26 @@
       <a-icon slot="indicator" type="loading" style="font-size: 24px" spin/>
       <ContentArea>
         <div class="etcs-container">
-          {{ MinecraftItems }}
+          <div class="mdui-table-fluid">
+            <table class="mdui-table mdui-table-hoverable">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>图片</th>
+                <th>名称</th>
+                <th>标签</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(Item, k) in MinecraftItems" :key="k">
+                <td>{{ Item['id'] }}</td>
+                <td><img :src="Item['icon']" :alt="Item['id']+':'+Item['name']"/></td>
+                <td>{{ Item['name'] }}</td>
+                <td>{{ Item['tag'] }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </ContentArea>
     </a-spin>
@@ -21,7 +40,8 @@
 <script>
     import ContentArea from "../components/ContentArea";
 
-    const MC_ITEMS_LISTS = 'https://bmss2-1253315888.file.myqcloud.com/static/other/Minecraft/MinecraftFullyItems.json';
+    // const MC_ITEMS_LISTS = 'https://bmss2-1253315888.file.myqcloud.com/static/other/Minecraft/MinecraftFullyItems.json';
+    let MC_ITEMS_LISTS = '/MinecraftFullyItems.json';
 
     export default {
         name: "minecraft-items",
@@ -33,17 +53,18 @@
             }
         },
         mounted() {
-            // this.fetchItemsLists();
+            this.fetchItemsLists();
         },
         methods: {
             fetchItemsLists() {
                 this.$axios.get(MC_ITEMS_LISTS)
                     .then((data) => {
-                        this.MinecraftItems = data;
+                        this.MinecraftItems = JSON.parse(JSON.stringify(data.data));
                         this.loadingData = false;
                     })
                     .catch((e) => {
                         this.loadingData = true;
+                        console.warn(e);
                         let self = this;
                         setTimeout(function () {
                             self.fetchItemsLists();
@@ -55,5 +76,17 @@
 </script>
 
 <style scoped>
+  .ant-spin-nested-loading {
+    position: relative;
+    width: 100%;
+  }
 
+  .mdui-table-fluid {
+    border: none;
+    box-shadow: none;
+  }
+
+  .mdui-table td, .mdui-table th {
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+  }
 </style>
