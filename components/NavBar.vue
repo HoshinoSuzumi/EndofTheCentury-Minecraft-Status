@@ -8,6 +8,10 @@
             {{ link.name }}
           </span>
       </nuxt-link>
+      <a v-for="(link, key) in outerList" :key="key" class="mdui-btn mdui-text-color-grey-700 nav-btn" target="_blank"
+         :href="link.path">
+        {{ link.name }}
+      </a>
       <button class="mdui-btn mdui-color-light-blue-500 mdui-text-color-white" id="btn_play_now">
         <i class="mdui-icon material-icons">play_arrow</i>
         立即游玩
@@ -22,9 +26,11 @@
         data() {
             return {
                 routesList: [
-                    {name: '首页', path: '/',},
-                    {name: '物品 ID 列表', path: '/minecraft-items',},
-                    {name: '皮肤站', path: 'https://mcskin.boxmoe.cn'},
+                    {name: '服务器状态', path: '/',},
+                    {name: '物品 ID 列表', path: '/minecraft-items'},
+                ],
+                outerList: [
+                    {name: '授权皮肤站', path: 'https://mcskin.boxmoe.cn'},
                 ],
             }
         },

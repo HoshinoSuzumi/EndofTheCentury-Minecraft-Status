@@ -3,7 +3,9 @@
     <ContentArea title="Minecraft IDs">
       <div>
         <label>
-          <input class="np-search" spellcheck="false" type="text" placeholder="搜索方块或物品的名称、ID或标签" autofocus/>
+          <input class="np-search" spellcheck="false" autocomplete="off" type="text" placeholder="搜索方块或物品的名称、ID或标签"
+                 v-model="inputKeyword"
+                 autofocus/>
         </label>
       </div>
     </ContentArea>
@@ -49,7 +51,9 @@
         data() {
             return {
                 loadingData: true,
+                inputKeyword: '',
                 MinecraftItems: [],
+                MinecraftItems_search: [],
             }
         },
         mounted() {
@@ -71,7 +75,10 @@
                         }, 2000);
                     });
             },
-        }
+            searchItems(keyword) {
+                return keyword;
+            },
+        },
     }
 </script>
 

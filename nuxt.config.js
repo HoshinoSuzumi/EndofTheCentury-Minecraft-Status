@@ -5,7 +5,7 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '末世纪MC服务器状态 | End of The Century',
+    title: '末世纪MC服务器 | End of The Century Survival | 提供1.14.4纯净服务器和实用在线工具',
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
