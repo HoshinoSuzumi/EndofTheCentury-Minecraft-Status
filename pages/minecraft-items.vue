@@ -43,7 +43,7 @@
     import ContentArea from "../components/ContentArea";
 
     // const MC_ITEMS_LISTS = 'https://bmss2-1253315888.file.myqcloud.com/static/other/Minecraft/MinecraftFullyItems.json';
-    let MC_ITEMS_LISTS = '/MinecraftFullyItems.json';
+    let MC_ITEMS_LISTS = 'https://mc.boxmoe.cn/MinecraftFullyItems.json';
 
     export default {
         name: "minecraft-items",
