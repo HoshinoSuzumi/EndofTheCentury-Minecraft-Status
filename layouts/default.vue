@@ -16,6 +16,10 @@
 </script>
 
 <style>
+  /**
+   * 关于 backdrop-filter
+   * 这个属性似乎没有得到良好的处理，它在我的 Chrome 中表现的不尽人意，并且会大幅降低流畅度
+   */
   body {
     padding-top: 50px;
   }
