@@ -82,6 +82,7 @@
     },
     watch: {
       'inputKeyword': function (kw) {
+        kw = kw.toLowerCase();
         let self = this;
         self.MinecraftItems_search = [];
         if (kw.toString().length === 0) {
@@ -89,15 +90,15 @@
           return null;
         }
         this.MinecraftItems.forEach(function (item) {
-          if (item['id'].indexOf(kw) !== -1) {
+          if (item['id'].toLowerCase().indexOf(kw) !== -1) {
             self.MinecraftItems_search.push(item);
             return null;
           }
-          if (item['name'].indexOf(kw) !== -1) {
+          if (item['name'].toLowerCase().indexOf(kw) !== -1) {
             self.MinecraftItems_search.push(item);
             return null;
           }
-          if (item['tag'].indexOf(kw) !== -1) {
+          if (item['tag'].toLowerCase().indexOf(kw) !== -1) {
             self.MinecraftItems_search.push(item);
             return null;
           }
