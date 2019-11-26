@@ -13,16 +13,22 @@
             {{ link.name }}
           </span>
       </nuxt-link>
+      <div class="etcs-divider-v"></div>
       <a v-for="(link, key) in outerList" :key="'outer' + key" class="mdui-btn mdui-text-color-grey-700 nav-btn"
          target="_blank"
          :href="link.path">
         {{ link.name }}
       </a>
-      <button class="mdui-btn mdui-color-light-blue-500 mdui-text-color-white" id="btn_play_now">
-        <i class="mdui-icon material-icons">play_arrow</i>
-        立即游玩
-      </button>
+      <!--      <button class="mdui-btn mdui-color-light-blue-500 mdui-text-color-white" id="btn_play_now" @click="playNow">-->
+      <!--        <i class="mdui-icon material-icons">play_arrow</i>-->
+      <!--        立即游玩-->
+      <!--      </button>-->
     </div>
+
+    <div class="mdui-dialog" id="#dialog-play-now">
+      2333
+    </div>
+
     <div class="np-navbar-actions mdui-hidden-sm-up">
       <button class="mdui-btn mdui-btn-icon" mdui-menu="{target: '#mobile-menu'}">
         <i class="mdui-icon material-icons">menu</i>
@@ -56,13 +62,19 @@
     data() {
       return {
         routesList: [
-          {name: '服务器状态', path: '/',},
+          {name: '首页', path: '/'},
+          {name: '服务器状态', path: '/server-status'},
           {name: '物品图鉴', path: '/minecraft-items'},
         ],
         outerList: [
           {name: '授权皮肤站', path: 'https://mcskin.boxmoe.cn'},
         ],
       }
+    },
+    methods: {
+      playNow() {
+        this.$router.push('/play-now');
+      },
     },
     mounted() {
       mdui.mutation();
