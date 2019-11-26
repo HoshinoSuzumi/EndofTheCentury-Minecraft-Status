@@ -1,7 +1,9 @@
 <template>
   <div>
     <NavBar/>
-    <nuxt class="etcs-background-mask"/>
+    <div class="etcs-background-mask">
+      <nuxt/>
+    </div>
   </div>
 </template>
 
