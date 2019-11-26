@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <ContentArea title="Minecraft IDs">
+    <ContentArea title="Minecraft 图鉴">
       <div>
         <label>
           <input class="np-search" spellcheck="false" autocomplete="off" type="text" placeholder="搜索方块或物品的名称、ID或标签"

@@ -57,7 +57,7 @@
       return {
         routesList: [
           {name: '服务器状态', path: '/',},
-          {name: '物品 ID 列表', path: '/minecraft-items'},
+          {name: '物品图鉴', path: '/minecraft-items'},
         ],
         outerList: [
           {name: '授权皮肤站', path: 'https://mcskin.boxmoe.cn'},
