@@ -20,6 +20,30 @@
         立即游玩
       </button>
     </div>
+    <div class="np-navbar-actions mdui-hidden-sm-up">
+      <button class="mdui-btn mdui-btn-icon" mdui-menu="{target: '#mobile-menu'}">
+        <i class="mdui-icon material-icons">menu</i>
+      </button>
+
+      <ul class="mdui-menu" id="mobile-menu">
+        <li v-for="(link, k) in routesList" :key="'route' + k" class="mdui-menu-item"
+            :class="{'mdui-list-item-active': $route.path === link.path}">
+          <nuxt-link :to="link.path" class="mdui-ripple">
+            <!--            <i class="mdui-menu-item-icon"/>-->
+            {{ link.name }}
+          </nuxt-link>
+        </li>
+        <li class="mdui-divider"/>
+        <li v-for="(link, k) in outerList" :key="'outer' + k" class="mdui-menu-item"
+            :class="{'mdui-list-item-active': $route.path === link.path}">
+          <a :href="link.path" target="_blank" class="mdui-ripple">
+            <i class="mdui-menu-item-icon mdui-icon material-icons">link</i>
+            {{ link.name }}
+          </a>
+        </li>
+      </ul>
+
+    </div>
   </div>
 </template>
 
@@ -37,6 +61,9 @@
         ],
       }
     },
+    mounted() {
+      mdui.mutation();
+    }
   }
 </script>
 
@@ -111,5 +138,11 @@
 
   #btn_play_now i {
     margin-left: -.5rem;
+  }
+
+  #mobile-menu {
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0.5rem 0.875rem 2.375rem rgba(39, 44, 49, .06), 0.0625rem 0.1875rem 0.5rem rgba(39, 44, 49, .03);
   }
 </style>
