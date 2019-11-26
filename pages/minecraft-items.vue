@@ -4,8 +4,7 @@
       <div>
         <label>
           <input class="np-search" spellcheck="false" autocomplete="off" type="text" placeholder="搜索方块或物品的名称、ID或标签"
-                 v-model="inputKeyword"
-                 autofocus/>
+                 v-model="inputKeyword"/>
         </label>
       </div>
     </ContentArea>
@@ -40,6 +39,20 @@
 </template>
 
 <script>
+// TODO: 优化图鉴数据库读取机制，考虑分部分读取
+
+/**
+ * 关于网络请求
+ * 
+ * 直接将图鉴数据库存储在Vuex Store中（当前）
+ * 优点：节省网络请求开销，且可以离线浏览
+ * 缺点：每次进入页面会执行大量渲染操作导致明显卡顿
+ * 
+ * 网络请求图鉴数据库文件
+ * 优点：可以在某种程度上防止客户端渲染大量数据时的卡顿
+ * 缺点：无网络连接情况下无法浏览，且可能因为某些网络因素无法访问到图鉴数据库
+ */
+
   import ContentArea from "../components/ContentArea";
 
   // let MC_ITEMS_LISTS = 'https://mc.boxmoe.cn/MinecraftFullyItems.json';

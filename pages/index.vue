@@ -5,7 +5,7 @@
       <p>“末世纪” 纯净综合服务器</p>
       <div class="mdui-container etcs-container container" style="background: rgba(255,255,255,.5);">
         <div class="mdui-table-fluid mdui-typo">
-          <table class="mdui-table mdui-table-hoverable">
+          <table class="mdui-table">
             <thead>
             <tr>
               <th>IP</th>
@@ -57,6 +57,8 @@
     width: unset;
     padding: 1rem;
     margin-top: 2rem;
+    background: rgba(255, 255, 255, .5) !important;
+    backdrop-filter: blur(20px);
   }
 
 
