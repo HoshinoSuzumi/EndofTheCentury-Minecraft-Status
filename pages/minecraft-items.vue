@@ -40,69 +40,72 @@
 </template>
 
 <script>
-    import ContentArea from "../components/ContentArea";
+  import ContentArea from "../components/ContentArea";
 
-    // const MC_ITEMS_LISTS = 'https://bmss2-1253315888.file.myqcloud.com/static/other/Minecraft/MinecraftFullyItems.json';
-    let MC_ITEMS_LISTS = 'https://mc.boxmoe.cn/MinecraftFullyItems.json';
+  // let MC_ITEMS_LISTS = 'https://mc.boxmoe.cn/MinecraftFullyItems.json';
 
-    export default {
-        name: "minecraft-items",
-        components: {ContentArea},
-        data() {
-            return {
-                loadingData: true,
-                inputKeyword: '',
-                MinecraftItems: [],
-                MinecraftItems_search: [],
-            }
-        },
-        mounted() {
-            this.fetchItemsLists();
-        },
-        methods: {
-            fetchItemsLists() {
-                this.$axios.get(MC_ITEMS_LISTS)
-                    .then((data) => {
-                        this.MinecraftItems = JSON.parse(JSON.stringify(data.data));
-                        this.MinecraftItems_search = this.MinecraftItems;
-                        this.loadingData = false;
-                    })
-                    .catch((e) => {
-                        this.loadingData = true;
-                        console.warn(e);
-                        let self = this;
-                        setTimeout(function () {
-                            self.fetchItemsLists();
-                        }, 2000);
-                    });
-            },
-        },
-        watch: {
-            'inputKeyword': function (kw) {
-                let self = this;
-                self.MinecraftItems_search = [];
-                if (kw.toString().length === 0) {
-                    self.MinecraftItems_search = self.MinecraftItems;
-                    return null;
-                }
-                this.MinecraftItems.forEach(function (item) {
-                    if (item['id'].indexOf(kw) !== -1) {
-                        self.MinecraftItems_search.push(item);
-                        return null;
-                    }
-                    if (item['name'].indexOf(kw) !== -1) {
-                        self.MinecraftItems_search.push(item);
-                        return null;
-                    }
-                    if (item['tag'].indexOf(kw) !== -1) {
-                        self.MinecraftItems_search.push(item);
-                        return null;
-                    }
-                });
-            }
+  export default {
+    name: "minecraft-items",
+    components: {ContentArea},
+    data() {
+      return {
+        loadingData: true,
+        inputKeyword: '',
+        MinecraftItems: [],
+        MinecraftItems_search: [],
+      }
+    },
+    mounted() {
+      // this.fetchItemsLists();
+      this.MinecraftItems = this.$store.state.minecraftIds.MinecraftIDs;
+      this.MinecraftItems_search = this.MinecraftItems;
+      this.loadingData = false;
+    },
+    methods: {
+      // fetchItemsLists() {
+      //   this.$axios.get(MC_ITEMS_LISTS)
+      //     .then((data) => {
+      //       this.MinecraftItems = JSON.parse(JSON.stringify(data.data));
+      //       console.log(this.MinecraftItems);
+      //       this.MinecraftItems_search = this.MinecraftItems;
+      //       this.loadingData = false;
+      //     })
+      //     .catch((e) => {
+      //       this.loadingData = true;
+      //       console.warn(e);
+      //       let self = this;
+      //       setTimeout(function () {
+      //         self.fetchItemsLists();
+      //       }, 2000);
+      //     });
+      // },
+    },
+    watch: {
+      'inputKeyword': function (kw) {
+        let self = this;
+        self.MinecraftItems_search = [];
+        if (kw.toString().length === 0) {
+          self.MinecraftItems_search = self.MinecraftItems;
+          return null;
         }
-        ,
+        this.MinecraftItems.forEach(function (item) {
+          if (item['id'].indexOf(kw) !== -1) {
+            self.MinecraftItems_search.push(item);
+            return null;
+          }
+          if (item['name'].indexOf(kw) !== -1) {
+            self.MinecraftItems_search.push(item);
+            return null;
+          }
+          if (item['tag'].indexOf(kw) !== -1) {
+            self.MinecraftItems_search.push(item);
+            return null;
+          }
+        });
+      }
     }
+    ,
+  }
 </script>
 
 <style scoped>

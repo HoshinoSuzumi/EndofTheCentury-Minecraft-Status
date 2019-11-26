@@ -1,14 +1,17 @@
 <template>
   <div class="np-navbar">
-    <div class="np-navbar-title">End of The Century <b>Survival</b></div>
+    <div class="np-navbar-title" @click="$router.push('/')">
+      End of The Century <b>Survival</b>
+    </div>
     <div class="np-navbar-actions mdui-hidden-xs-down">
-      <nuxt-link v-for="(link, key) in routesList" :key="key" :to="link.path">
+      <nuxt-link v-for="(link, key) in routesList" :key="'route' + key" :to="link.path">
           <span class="mdui-btn mdui-text-color-grey-700 nav-btn"
                 :class="{'nav-btn-active': $route.path === link.path}">
             {{ link.name }}
           </span>
       </nuxt-link>
-      <a v-for="(link, key) in outerList" :key="key" class="mdui-btn mdui-text-color-grey-700 nav-btn" target="_blank"
+      <a v-for="(link, key) in outerList" :key="'outer' + key" class="mdui-btn mdui-text-color-grey-700 nav-btn"
+         target="_blank"
          :href="link.path">
         {{ link.name }}
       </a>
@@ -21,20 +24,20 @@
 </template>
 
 <script>
-    export default {
-        name: "NavBar",
-        data() {
-            return {
-                routesList: [
-                    {name: '服务器状态', path: '/',},
-                    {name: '物品 ID 列表', path: '/minecraft-items'},
-                ],
-                outerList: [
-                    {name: '授权皮肤站', path: 'https://mcskin.boxmoe.cn'},
-                ],
-            }
-        },
-    }
+  export default {
+    name: "NavBar",
+    data() {
+      return {
+        routesList: [
+          {name: '服务器状态', path: '/',},
+          {name: '物品 ID 列表', path: '/minecraft-items'},
+        ],
+        outerList: [
+          {name: '授权皮肤站', path: 'https://mcskin.boxmoe.cn'},
+        ],
+      }
+    },
+  }
 </script>
 
 <style scoped>
@@ -63,6 +66,7 @@
     margin: auto 0;
     font-size: 1.2rem;
     font-family: Poppins, "Microsoft JhengHei", sans-serif;
+    cursor: pointer;
   }
 
   .np-navbar .np-navbar-actions {
@@ -71,6 +75,11 @@
     display: inline-flex;
     font-size: 1.2rem;
     font-family: "Microsoft JhengHei", sans-serif;
+  }
+
+  a.nav-btn {
+    text-decoration: none;
+    out-line: none;
   }
 
   .nav-btn:before {
