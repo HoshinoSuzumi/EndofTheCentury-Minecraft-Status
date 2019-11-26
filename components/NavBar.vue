@@ -1,7 +1,10 @@
 <template>
   <div class="np-navbar">
-    <div class="np-navbar-title" @click="$router.push('/')">
+    <div class="np-navbar-title mdui-hidden-xs-down" @click="$router.push('/')">
       End of The Century <b>Survival</b>
+    </div>
+    <div class="np-navbar-title mdui-hidden-sm-up" @click="$router.push('/')">
+      ETC <b>Survival</b>
     </div>
     <div class="np-navbar-actions mdui-hidden-xs-down">
       <nuxt-link v-for="(link, key) in routesList" :key="'route' + key" :to="link.path">
