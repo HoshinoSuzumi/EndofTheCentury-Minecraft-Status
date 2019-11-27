@@ -64,6 +64,7 @@
         routesList: [
           {name: '首页', path: '/'},
           {name: '服务器状态', path: '/server-status'},
+          {name: '卫星地图', path: '/etcs-map-online'},
           {name: '物品图鉴', path: '/minecraft-items'},
         ],
         outerList: [

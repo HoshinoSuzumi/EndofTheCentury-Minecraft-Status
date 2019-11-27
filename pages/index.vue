@@ -14,8 +14,12 @@
             </thead>
             <tbody>
             <tr>
-              <td>etcs.redneno.me</td>
-              <td>1.14.4</td>
+              <td style="padding-right: 2rem;">
+                etcs.redneno.me:8001
+              </td>
+              <td>
+                1.14.4
+              </td>
             </tr>
             </tbody>
           </table>
@@ -46,7 +50,7 @@
     color: #FFFFFF;
     margin: 0 auto;
     font-size: 2.2rem;
-    font-weight: 100;
+    font-weight: 300;
   }
 
   .title p {
@@ -72,6 +76,11 @@
   }
 
   .mdui-table td, .mdui-table th {
+    font-size: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, .05);
+  }
+
+  .mdui-table tbody {
+    font-family: Poppins, sans-serif;
   }
 </style>
